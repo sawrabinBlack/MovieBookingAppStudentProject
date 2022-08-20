@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/margin_medium_2"
+    tools:context=".activities.AddNewCardActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBackAddNewCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_black_24dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAddNewCardHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivBackAddNewCard"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:text="@string/lbl_add_new_card"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_heading_2x"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAddNewCardHeader"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:text="Card Number"
+
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etCardNo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvCardNo"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="number"
+        android:maxLength="16" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardHolderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etCardNo"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="@string/lbl_card_holder_name"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etCardHolder"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvCardHolderName"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="text"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvExpDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etCardHolder"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:text="@string/lbl_exp_date"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etExpDate"
+        android:layout_width="@dimen/width_exp_date"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvExpDate"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="date"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCCV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etCCV"
+        android:layout_alignStart="@+id/etCCV"
+        android:text="@string/lbl_ccv"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etCCV"
+        android:layout_width="@dimen/width_ccv"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvExpDate"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/etExpDate"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="number"
+        android:maxLength="3"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <TextView
+        android:id="@+id/tvAddNewCardConfirmBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center|bottom"
+        android:layout_marginStart="@dimen/margin_medium_2"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:layout_marginEnd="@dimen/margin_medium_2"
+        android:layout_marginBottom="@dimen/margin_medium_2"
+        android:background="@drawable/background_confirm_btn"
+        android:elevation="@dimen/margin_card_medium"
+        android:gravity="center|bottom"
+        android:paddingTop="@dimen/margin_card_medium_2"
+        android:paddingBottom="@dimen/margin_card_medium_2"
+        android:shadowColor="@color/colorAccent"
+        android:text="Confirm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_regular_3x"
+        android:textStyle="bold" />
+
+</RelativeLayout>

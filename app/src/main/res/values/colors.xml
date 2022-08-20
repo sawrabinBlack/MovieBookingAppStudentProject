@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#FFFFFFFF</color>
+    <color name="colorPrimaryDark">#C8CFDE</color>
+    <color name="colorPrimaryLight">#1f2a33</color>
+    <color name="colorAccent">#623eea</color>
+    <color name="colorSecondaryText">#B4BED1</color>
+    <color name="color_overlay">#7AC8CFDE</color>
+    <color name="movie_seat_avaliable">#d1d8eb</color>
+    <color name="movie_seat_taken">#8291b2</color>
+    <color name="color_credit_card">#905FEA</color>
+    <color name="color_payment_selected">#FF34C1C6</color>
+    <color name="color_payment_unselected">#FF1A1E1E</color>
+</resources>

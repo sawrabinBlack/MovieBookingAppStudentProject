@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:pathData="M32,265 C198,141 315,159 484,252"
+
+        android:fillColor="@android:color/holo_red_light"/>
+</vector>

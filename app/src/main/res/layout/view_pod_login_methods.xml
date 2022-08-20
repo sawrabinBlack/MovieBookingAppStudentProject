@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.sawrabin.moviebookingapp.viewpod.LoginMethodsViewPod xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/margin_medium_2">
+
+    <FrameLayout
+        android:id="@+id/flSignFacebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_login_methods"
+        android:paddingTop="@dimen/margin_medium"
+        android:paddingBottom="@dimen/margin_medium">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/lbl_sign_in_with_facebook"
+
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="@dimen/text_regular_3x" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+
+            android:layout_width="@dimen/margin_xlarge"
+            android:layout_height="@dimen/margin_xlarge"
+            android:layout_marginStart="@dimen/margin_xlarge"
+            android:src="@drawable/logo_facebook" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/flSignGoogle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/flSignFacebook"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:background="@drawable/background_login_methods"
+
+        android:paddingTop="@dimen/margin_medium"
+        android:paddingBottom="@dimen/margin_medium">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/lbl_sign_in_with_google"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="@dimen/text_regular_3x" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+
+            android:layout_width="@dimen/margin_xlarge"
+            android:layout_height="@dimen/margin_xlarge"
+            android:layout_marginStart="@dimen/margin_xlarge"
+            android:src="@drawable/logo_google" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/flConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/flSignGoogle"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:background="@drawable/background_confirm_btn"
+        android:elevation="@dimen/margin_card_medium"
+        android:paddingTop="@dimen/margin_card_medium_2"
+        android:paddingBottom="@dimen/margin_card_medium_2">
+
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:shadowColor="@color/colorAccent"
+            android:text="@string/lbl_confirm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_regular_3x"
+            android:textStyle="bold" />
+
+
+    </FrameLayout>
+
+</com.example.sawrabin.moviebookingapp.viewpod.LoginMethodsViewPod>

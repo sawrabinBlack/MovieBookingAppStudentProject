@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context=".activities.MovieTimeActivity">
+    // floating Next Button Setup
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="@dimen/margin_small">
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvNextMovieTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_margin="@dimen/margin_medium_2"
+        android:background="@drawable/background_confirm_btn"
+        android:elevation="@dimen/margin_card_medium"
+        android:gravity="center|bottom"
+        android:shadowColor="@color/colorAccent"
+        android:paddingBottom="@dimen/margin_medium_2"
+        android:paddingTop="@dimen/margin_medium_2"
+        android:text="Next"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_regular_3x"
+        android:textStyle="bold" />
+</FrameLayout>
+
+    // Main Screen
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        //back Button
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBackMovieTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium_2"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:elevation="@dimen/margin_medium_2"
+            app:srcCompat="@drawable/ic_back" />
+
+        //Recycler View For Date
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMovieDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivBackMovieTime"
+            android:background="@color/colorAccent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        // Nest scroll For Movie Time And Theatre Selection
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_marginTop="@dimen/margin_medium_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rvMovieDate"
+            android:background="@drawable/background_movie_time"
+            android:elevation="@dimen/margin_medium_2"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_medium_3">
+                // Main Recycle View with Nested Recycler View
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMovieTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                //white space
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_whitespace"
+                    android:layout_below="@id/rvMovieTime" />
+
+            </RelativeLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

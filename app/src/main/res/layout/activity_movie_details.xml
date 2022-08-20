@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/margin_xlarge"
+    tools:context=".activities.MovieDetailsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        app:elevation="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<!--  Collapsing Toolbar With Transparent title-->
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/clMovieDetail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_movie_detail_collapse"
+            app:collapsedTitleTextColor="@color/black"
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleTextColor="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:title="John Wick 3">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMovieDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/placeholder_moviedetail_johnwick" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBackMovieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium_2"
+                    android:layout_marginTop="@dimen/margin_xxlarge"
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:elevation="@dimen/margin_medium_2"
+                    app:srcCompat="@drawable/ic_back" />
+<!--Video Play Button Setup-->
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/margin_xxlarge"
+                    android:layout_height="@dimen/margin_xxlarge"
+                    android:background="@drawable/background_play_btn"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/margin_medium_2"
+                    app:srcCompat="@drawable/ic_baseline_play_arrow_white_24p" />
+<!--Movie Name-->
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvMovieNameDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/background_movie_title"
+                    android:paddingStart="@dimen/margin_medium_2"
+                    android:paddingTop="@dimen/margin_large"
+                    tools:text="John Wick 3 - Parabellum"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_heading_1x"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="parallax" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+<!--    //Nested Scroll View For Movie Detail-->
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/margin_medium"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvMovieDetailDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium_2"
+                tools:text="2 hr 11m " />
+
+            <RatingBar
+                android:id="@+id/rbMovieDetail"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium_2"
+                android:layout_toEndOf="@id/tvMovieDetailDuration"
+                android:numStars="5"
+                android:rating="5" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvImdbRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_card_medium_2"
+                android:layout_toEndOf="@id/rbMovieDetail"
+                tools:text="IMDb 6.6"
+                android:textSize="@dimen/text_regular_2x" />
+
+           <androidx.recyclerview.widget.RecyclerView
+               android:layout_below="@id/tvMovieDetailDuration"
+               android:id="@+id/rvMovieGenre"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+<!--// Plot Summary-->
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPlotSummaryHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rvMovieGenre"
+                android:layout_marginStart="@dimen/margin_medium_2"
+                android:layout_marginTop="@dimen/margin_medium_2"
+                android:text="@string/lbl_plot_summary_header"
+                android:textSize="@dimen/text_regular_3x"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPlotSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPlotSummaryHeader"
+                android:layout_marginStart="@dimen/margin_medium_2"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium_3"
+                android:lineHeight="@dimen/margin_large"
+                tools:text="After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services. Now stuck with a $14 million bounty on his head, Wick must fight his way through the streets of New York as he becomes the target of the world's most ruthless killers."
+                android:textSize="@dimen/text_regular_3x" />
+
+<!--            //Cast Actor Section-->
+
+            <androidx.appcompat.widget.AppCompatTextView
+
+                android:id="@+id/tvCastTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPlotSummary"
+
+                android:layout_marginStart="@dimen/margin_medium_2"
+                android:layout_marginTop="@dimen/margin_medium_2"
+                android:text="@string/lbl_title_cast"
+                android:textSize="@dimen/text_regular_3x"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvCastTitle"
+                android:layout_marginTop="@dimen/margin_medium_2"
+                android:layout_marginBottom="@dimen/margin_medium_2"
+                android:clipToPadding="false"
+                android:paddingEnd="@dimen/margin_medium_2" />
+
+
+        </RelativeLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+<!--    // Get Your Ticket Button-->
+<FrameLayout
+    android:layout_gravity="bottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginBottom="300dp"
+        android:id="@+id/tvGetYourTicket"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/margin_medium_2"
+        android:background="@drawable/background_confirm_btn"
+        android:elevation="@dimen/margin_medium"
+        android:gravity="center"
+        android:paddingTop="@dimen/margin_card_medium_2"
+        android:paddingBottom="@dimen/margin_card_medium_2"
+        android:shadowColor="@color/colorAccent"
+        android:text="@string/lbl_get_your_ticket"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_regular_3x"
+        android:textStyle="bold" />
+</FrameLayout>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

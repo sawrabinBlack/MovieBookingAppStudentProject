@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+android:layout_marginStart="@dimen/margin_large"
+    android:layout_marginBottom="@dimen/margin_medium_2"
+
+    >
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:id="@+id/tvMovieDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fri"
+        android:layout_marginStart="@dimen/margin_small"
+        android:textColor="@color/color_overlay"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMovieDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMovieDay"
+        android:text="10"
+        android:textColor="@color/color_overlay"
+        android:textSize="@dimen/text_heading_1x" />
+
+
+
+</RelativeLayout>

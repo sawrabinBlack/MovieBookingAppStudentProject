@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/margin_medium_2"
+    android:paddingTop="@dimen/margin_medium_2"
+    android:paddingEnd="@dimen/margin_medium_2"
+    tools:context=".fragments.LoginFragment">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_email"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etEmailLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvEmail"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:backgroundTint="@color/colorPrimaryDark" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPasswordSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etEmailLogin"
+        android:layout_marginTop="@dimen/margin_medium_3"
+        android:text="@string/lbl_password"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPasswordLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvPasswordSignUp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="textPassword"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvForgetPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPasswordLogin"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:text="@string/lbl_forget_password"
+        android:textColor="@color/colorSecondaryText" />
+
+    <include
+        android:id="@+id/vpLogin"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvForgetPassword"
+        layout="@layout/view_pod_login_methods"
+        android:layout_marginBottom="@dimen/margin_medium_3"/>
+
+
+
+
+</RelativeLayout>

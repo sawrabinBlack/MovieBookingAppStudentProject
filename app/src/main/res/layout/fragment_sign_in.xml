@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/margin_medium_2"
+    android:paddingTop="@dimen/margin_medium_2"
+    android:paddingEnd="@dimen/margin_medium_2"
+    tools:context=".fragments.LoginFragment">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_email"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etEmailSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvEmail"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="textEmailAddress"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPassword"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="@string/lbl_name"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvName"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="text"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPasswordSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etEmailSignUp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="@string/lbl_password"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvPasswordSignUp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="textPassword"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etName"
+        android:text="@string/lbl_phone"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/text_regular_3x" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_below="@+id/tvPhone"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:inputType="phone"
+        android:textSize="@dimen/text_regular_3x" />
+    <include
+        android:id="@+id/vpSignUp"
+        android:layout_marginTop="@dimen/margin_medium_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPhone"
+        layout="@layout/view_pod_login_methods"
+        android:layout_marginBottom="@dimen/margin_medium_3"/>
+
+</RelativeLayout>

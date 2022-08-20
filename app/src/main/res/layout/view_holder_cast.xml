@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_medium_2">
+
+    <com.google.android.material.card.MaterialCardView
+
+        android:id="@+id/mcCastIImageCard"
+        android:layout_width="@dimen/width_cast"
+        android:layout_height="@dimen/height_cast"
+        android:background="@drawable/background_movie"
+        app:cardCornerRadius="@dimen/radius_cast_Image_card">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCastImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_john_wick_cast" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCastName"
+        android:layout_width="@dimen/width_cast_text"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mcCastIImageCard"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="Keenu Reeves"
+        android:textAlignment="center" />
+
+</RelativeLayout>

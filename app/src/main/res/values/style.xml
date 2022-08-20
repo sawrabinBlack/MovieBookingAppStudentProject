@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ShapeAppearanceOverlay.App.CornerSize10Percent" parent="">
+        <item name="cornerSizeTopLeft">@dimen/margin_card_medium_2</item>
+        <item name="cornerSizeTopRight">@dimen/margin_card_medium_2</item>
+    </style>
+</resources>

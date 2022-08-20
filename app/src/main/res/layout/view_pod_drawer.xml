@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.sawrabin.moviebookingapp.viewpod.DrawerViewPod xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingStart="@dimen/margin_medium_2"
+    android:paddingEnd="@dimen/margin_medium_2">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvProfileDrawer"
+        android:layout_width="@dimen/margin_xxlarge"
+        android:layout_height="@dimen/margin_xxlarge"
+        android:layout_marginTop="@dimen/margin_top_drawer_profile"
+        app:cardCornerRadius="@dimen/margin_xxlarge">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/placeholder_profile" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvUserNameDrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/cvProfileDrawer"
+        android:layout_marginStart="@dimen/margin_medium_2"
+        android:layout_toEndOf="@id/cvProfileDrawer"
+        tools:text="James"
+        android:textColor="@color/white" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEmailDrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUserNameDrawer"
+        android:layout_alignStart="@id/tvUserNameDrawer"
+        android:layout_marginTop="@dimen/margin_medium"
+        tools:text="james@gmail.com"
+        android:textColor="@color/white" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUserNameDrawer"
+        android:layout_alignTop="@+id/tvEmailDrawer"
+        android:layout_alignParentEnd="true"
+        android:text="@string/lbl_edit"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/llPromotionCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cvProfileDrawer"
+        android:layout_marginTop="@dimen/margin_xxlarge">
+
+        <androidx.appcompat.widget.AppCompatImageView
+
+            android:layout_width="@dimen/margin_medium_3"
+            android:layout_height="@dimen/margin_medium_3"
+            android:src="@drawable/ic_baseline_local_offer_white_24p" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium_2"
+            android:text="@string/lbl_promotion_code"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_regular_2x" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSelectLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llPromotionCode"
+        android:layout_marginTop="@dimen/margin_xlarge">
+
+        <androidx.appcompat.widget.AppCompatImageView
+
+            android:layout_width="@dimen/margin_medium_3"
+            android:layout_height="@dimen/margin_medium_3"
+            android:src="@drawable/ic_baseline_g_translate_white_24p" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium_2"
+            android:text="@string/lbl_select_language"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_regular_2x" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llTermsOfServices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llSelectLanguage"
+        android:layout_marginTop="@dimen/margin_xlarge">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivTermsOfServices"
+            android:layout_width="@dimen/margin_medium_3"
+            android:layout_height="@dimen/margin_medium_3"
+            android:src="@drawable/ic_baseline_assignment_white_24dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTermsOfServices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium_2"
+            android:text="@string/lbl_terms_of_services"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_regular_2x" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llRateUs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llTermsOfServices"
+        android:layout_marginTop="@dimen/margin_xlarge">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivRateUs"
+            android:layout_width="@dimen/margin_medium_3"
+            android:layout_height="@dimen/margin_medium_3"
+            android:src="@drawable/ic_baseline_stars_white_24p" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRateUs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium_2"
+            android:text="@string/lbl_rate_us"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_regular_2x" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llHelp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llRateUs"
+        android:layout_marginTop="@dimen/margin_xlarge">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivHelp"
+        android:layout_width="@dimen/margin_medium_3"
+        android:layout_height="@dimen/margin_medium_3"
+        android:src="@drawable/ic_baseline_help_24" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium_2"
+        android:text="@string/lbl_help"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_regular_2x" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_xxlarge">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/margin_medium_3"
+            android:layout_height="@dimen/margin_medium_3"
+            android:src="@drawable/ic_baseline_login_white_24dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium_2"
+            android:text="@string/lbl_log_out"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_regular_2x" />
+
+    </LinearLayout>
+
+
+
+</com.example.sawrabin.moviebookingapp.viewpod.DrawerViewPod>
