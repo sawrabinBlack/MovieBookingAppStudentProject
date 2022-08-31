@@ -57,4 +57,5 @@
     <string name="lbl_your_selection_seat">Your Selection</string>
     <string name="lbl_buy_ticket">Buy Ticket</string>
     <string name="lbl_edit">Edit</string>
+    <string name="warning_please_add_a_card">Please Add A Card To Continue</string>
 </resources>

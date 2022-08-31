@@ -95,7 +95,6 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
                 it.totalPrice=mSubTotal
             }
             mCarrierJson = Gson().toJson(mCarrierData, CarrierVO::class.java)
-            Log.println(Log.INFO, "Filter Snack", mCarrierJson.toString())
             startActivity(PaymentAccountActivity.newIntent(this, mCarrierJson))
         }
     }
@@ -123,14 +122,6 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
 
     }
 
-
-    private fun snackOnPlusUpdate(snack: SnackPaymentVO) {
-        snack.quantity++
-        mSubTotal += snack.price ?: 0
-        mSnackAdapter.setNewData(mSnackList)
-        subTotalUpdate(mSubTotal)
-    }
-
     override fun onTapMinus(id: Int) {
         for (snack in mSnackList) {
             if (snack.id == id) {
@@ -141,7 +132,12 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
         }
         mSnackAdapter.setNewData(mSnackList)
     }
-
+    private fun snackOnPlusUpdate(snack: SnackPaymentVO) {
+        snack.quantity++
+        mSubTotal += snack.price ?: 0
+        mSnackAdapter.setNewData(mSnackList)
+        subTotalUpdate(mSubTotal)
+    }
     private fun snackOnMinusUpdate(snack: SnackPaymentVO) {
         snack.quantity--
         mSubTotal -= snack.price ?: 0

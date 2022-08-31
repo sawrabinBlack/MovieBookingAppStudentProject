@@ -48,18 +48,23 @@ object MovieBookingModelImpl : MovieBookingModel {
     }
 
     override fun userLogOut(onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-        mMovieBookingDataAgent.userLogOut("Bearer $mToken", onSuccess = {
-            mToken = null
-            onSuccess()
-        }, onFailure = onFailure)
+
+        mToken?.transformBearerToken()?.let {
+            mMovieBookingDataAgent.userLogOut(it, onSuccess = {
+                mToken = null
+                onSuccess()
+            }, onFailure = onFailure)
+        }
     }
 
     override fun getProfile(onSuccess: (DataVO) -> Unit, onFailure: (String) -> Unit) {
-        mMovieBookingDataAgent.getProfile(
-            userToken = "Bearer $mToken",
-            onSuccess = onSuccess,
-            onFailure = onFailure
-        )
+        mToken?.transformBearerToken()?.let {
+            mMovieBookingDataAgent.getProfile(
+                userToken = it,
+                onSuccess = onSuccess,
+                onFailure = onFailure
+            )
+        }
     }
 
     override fun getNowShowing(onSuccess: (List<MovieVO>) -> Unit, onFailure: (String) -> Unit) {
@@ -100,13 +105,16 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (List<CinemaDayVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        mMovieBookingDataAgent.getCinemaDayTimeslots(
-            userToken = "Bearer $mToken",
-            movieId = movieId,
-            date = date,
-            onSuccess = onSuccess,
-            onFailure = onFailure
-        )
+        mToken?.transformBearerToken()?.let {
+            mMovieBookingDataAgent.getCinemaDayTimeslots(
+                userToken = it,
+                movieId = movieId,
+                date = date,
+                onSuccess = onSuccess,
+                onFailure = onFailure
+            )
+        }
+
     }
 
     override fun getMovieSeat(
@@ -116,11 +124,14 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (List<MovieSeatVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        mMovieBookingDataAgent.getMovieSeat(
-            userToken = "Bearer $mToken",
-            cinemaDayTimeslotId = cinemaDayTimeslotId,
-            bookDate = bookDate, onSuccess = onSuccess, onFailure = onFailure
-        )
+        mToken?.transformBearerToken()?.let {
+            mMovieBookingDataAgent.getMovieSeat(
+                userToken = it,
+                cinemaDayTimeslotId = cinemaDayTimeslotId,
+                bookDate = bookDate, onSuccess = onSuccess, onFailure = onFailure
+            )
+        }
+
     }
 
     override fun getImdbRating(
@@ -128,9 +139,9 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (MovieVO) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        mMovieBookingDataAgent.getImdbRating(imdbId = imdbId, onSuccess = {
-            val mMovieVO = it.firstOrNull()
-            mMovieVO?.let { onSuccess(mMovieVO) }
+        mMovieBookingDataAgent.getImdbRating(imdbId = imdbId, onSuccess = { movieList ->
+            val mMovieVO = movieList.firstOrNull()
+            mMovieVO?.let { onSuccess(it) }
 
         }, onFailure = onFailure)
     }
@@ -139,22 +150,28 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (List<SnackPaymentVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        mMovieBookingDataAgent.getSnackList(
-            userToken = "Bearer $mToken",
-            onSuccess = onSuccess,
-            onFailure = onFailure
-        )
+        mToken?.transformBearerToken()?.let {
+            mMovieBookingDataAgent.getSnackList(
+                userToken = it,
+                onSuccess = onSuccess,
+                onFailure = onFailure
+            )
+        }
+
     }
 
     override fun getPaymentMethods(
         onSuccess: (List<SnackPaymentVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        mMovieBookingDataAgent.getPaymentMethods(
-            userToken = "Bearer $mToken",
-            onSuccess = onSuccess,
-            onFailure = onFailure
-        )
+        mToken?.transformBearerToken()?.let {
+            mMovieBookingDataAgent.getPaymentMethods(
+                userToken = it,
+                onSuccess = onSuccess,
+                onFailure = onFailure
+            )
+        }
+
     }
 
     override fun createNewCard(
@@ -165,15 +182,17 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (List<CardVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        mMovieBookingDataAgent.createNewCard(
-            userToken = "Bearer $mToken",
-            cardNumber = cardNumber,
-            cardHolder = cardHolder,
-            expDate = expDate,
-            cvc = cvc,
-            onSuccess = onSuccess,
-            onFailure = onFailure
-        )
+        mToken?.transformBearerToken()?.let {
+            mMovieBookingDataAgent.createNewCard(
+                userToken = it,
+                cardNumber = cardNumber,
+                cardHolder = cardHolder,
+                expDate = expDate,
+                cvc = cvc,
+                onSuccess = onSuccess,
+                onFailure = onFailure
+            )
+        }
     }
 
     override fun checkOut(
@@ -188,12 +207,29 @@ object MovieBookingModelImpl : MovieBookingModel {
         onSuccess: (CheckOutSuccessVO) -> Unit,
         onFailure: (String) -> Unit
     ) {
-        val mCheckOutRequest= CheckOutRequest(cinemaDayTimeslotId,row,seatNumber,bookingDate, movieId, cardId, cinemaId, snacks)
-        mMovieBookingDataAgent.checkOut(
-            checkOutRequest = mCheckOutRequest,
-            userToken= "Bearer $mToken",
-            onSuccess = onSuccess,
-            onFailure = onFailure
+        val mCheckOutRequest = CheckOutRequest(
+            cinemaDayTimeslotId,
+            row,
+            seatNumber,
+            bookingDate,
+            movieId,
+            cardId,
+            cinemaId,
+            snacks
         )
+        mToken?.transformBearerToken()?.let {
+            mMovieBookingDataAgent.checkOut(
+                checkOutRequest = mCheckOutRequest,
+                userToken = it,
+                onSuccess = onSuccess,
+                onFailure = onFailure
+            )
+        }
+
+    }
+
+//Extension Function for Bear Token
+    private fun String.transformBearerToken(): String {
+        return "Bearer $this"
     }
 }

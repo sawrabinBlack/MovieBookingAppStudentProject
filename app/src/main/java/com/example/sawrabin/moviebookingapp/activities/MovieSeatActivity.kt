@@ -15,11 +15,8 @@ import com.example.sawrabin.moviebookingapp.data.vos.CarrierVO
 import com.example.sawrabin.moviebookingapp.data.vos.MovieSeatVO
 import com.example.sawrabin.moviebookingapp.data.vos.SEAT_TYPE_AVAILABLE
 import com.example.sawrabin.moviebookingapp.delegate.MovieSeatDelegate
-import com.example.sawrabin.moviebookingapp.network.MovieBookingApi
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_movie_seat_activity.*
-import java.text.SimpleDateFormat
 
 class MovieSeatActivity : AppCompatActivity(), MovieSeatDelegate {
     lateinit var mMovieSeatAdapter: MovieSeatAdapter
