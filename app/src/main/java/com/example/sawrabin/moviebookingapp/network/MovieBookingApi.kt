@@ -52,12 +52,12 @@ interface MovieBookingApi {
     @GET(API_GET_SNACK_LIST)
     fun getSnackList(
         @Header(PARAM_AUTHORIZATION) authorization: String
-    ): Call<GetSnackAndPaymentResponse>
+    ): Call<GetSnackResponse>
 
     @GET(API_GET_PAYMENT_METHODS)
     fun getPaymentMethods(
         @Header(PARAM_AUTHORIZATION) authorization: String
-    ): Call<GetSnackAndPaymentResponse>
+    ): Call<GetPaymentResponse>
 
     @POST(API_CREATE_CARD)
     @FormUrlEncoded

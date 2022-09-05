@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sawrabin.moviebookingapp.R
 import com.example.sawrabin.moviebookingapp.adapter.PaymentAdapter
@@ -12,7 +11,8 @@ import com.example.sawrabin.moviebookingapp.adapter.SnackAdapter
 import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModel
 import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModelImpl
 import com.example.sawrabin.moviebookingapp.data.vos.CarrierVO
-import com.example.sawrabin.moviebookingapp.data.vos.SnackPaymentVO
+import com.example.sawrabin.moviebookingapp.data.vos.PaymentVO
+import com.example.sawrabin.moviebookingapp.data.vos.SnackVO
 import com.example.sawrabin.moviebookingapp.delegate.PaymentMethodDelegate
 import com.example.sawrabin.moviebookingapp.delegate.SnackDelegate
 import com.google.android.material.snackbar.Snackbar
@@ -21,8 +21,8 @@ import kotlinx.android.synthetic.main.activity_snack.*
 
 class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate {
     private var mMovieBookingModel: MovieBookingModel = MovieBookingModelImpl
-    private var mSnackList: List<SnackPaymentVO> = listOf()
-    private var mPaymentList: List<SnackPaymentVO> = listOf()
+    private var mSnackList: List<SnackVO> = listOf()
+    private var mPaymentList: List<PaymentVO> = listOf()
     var mSubTotal: Int = 0
     var mCarrierData: CarrierVO? = null
     var mCarrierJson: String = ""
@@ -30,7 +30,6 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
     companion object {
         const val EXTRA_CARRIER_DATA = "EXTRA_CARRIER_DATA"
         fun newIntent(context: Context, data: String): Intent {
-
             val intent = Intent(context, SnackActivity::class.java)
             intent.putExtra(EXTRA_CARRIER_DATA, data)
             return intent
@@ -42,8 +41,7 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_snack)
-        val mData = intent.getStringExtra(EXTRA_CARRIER_DATA)
-        mCarrierData = Gson().fromJson(mData, CarrierVO::class.java)
+        mCarrierData = MovieBookingModelImpl.getBookingData()
         mCarrierData?.let {
             mSubTotal = it.totalPrice ?: 0
             subTotalUpdate(it.totalPrice ?: 0)
@@ -89,9 +87,10 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
 //        }
 
         tvPaySnack.setOnClickListener {
-            mSnackList = mSnackList.filter { it.quantity != 0 }
+            val mSelectedSnackList = mSnackList.filter { it.quantity != 0 }
+            MovieBookingModelImpl.storeSnackData(mSelectedSnackList,mSubTotal)
             mCarrierData?.let {
-                it.snack=mSnackList
+                it.snack=mSelectedSnackList
                 it.totalPrice=mSubTotal
             }
             mCarrierJson = Gson().toJson(mCarrierData, CarrierVO::class.java)
@@ -132,13 +131,13 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
         }
         mSnackAdapter.setNewData(mSnackList)
     }
-    private fun snackOnPlusUpdate(snack: SnackPaymentVO) {
+    private fun snackOnPlusUpdate(snack: SnackVO) {
         snack.quantity++
         mSubTotal += snack.price ?: 0
         mSnackAdapter.setNewData(mSnackList)
         subTotalUpdate(mSubTotal)
     }
-    private fun snackOnMinusUpdate(snack: SnackPaymentVO) {
+    private fun snackOnMinusUpdate(snack: SnackVO) {
         snack.quantity--
         mSubTotal -= snack.price ?: 0
         subTotalUpdate(mSubTotal)

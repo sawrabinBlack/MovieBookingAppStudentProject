@@ -2,7 +2,6 @@ package com.example.sawrabin.moviebookingapp.network.dataagents
 
 import com.example.sawrabin.moviebookingapp.data.vos.*
 import com.example.sawrabin.moviebookingapp.network.CheckOutRequest
-import com.example.sawrabin.moviebookingapp.network.responses.GetCinemaTImeResponse
 
 interface MovieBookingDataAgent {
 
@@ -11,14 +10,14 @@ interface MovieBookingDataAgent {
         email: String,
         phone: String,
         password: String,
-        onSuccess: (Pair<DataVO, String>) -> Unit,
+        onSuccess: (Pair<UserDataVO, String>) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun emailLoginUser(
         email: String,
         password: String,
-        onSuccess: (String) -> Unit,
+        onSuccess: (Pair<UserDataVO, String>) -> Unit,
         onFailure: (String) -> Unit
     )
 
@@ -30,7 +29,7 @@ interface MovieBookingDataAgent {
 
     fun getProfile(
         userToken: String,
-        onSuccess: (DataVO) -> Unit,
+        onSuccess: (UserDataVO) -> Unit,
         onFailure: (String) -> Unit
     )
 
@@ -84,13 +83,13 @@ interface MovieBookingDataAgent {
 
     fun getSnackList(
         userToken: String,
-        onSuccess: (List<SnackPaymentVO>) -> Unit,
+        onSuccess: (List<SnackVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun getPaymentMethods(
         userToken: String,
-        onSuccess: (List<SnackPaymentVO>) -> Unit,
+        onSuccess: (List<PaymentVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 

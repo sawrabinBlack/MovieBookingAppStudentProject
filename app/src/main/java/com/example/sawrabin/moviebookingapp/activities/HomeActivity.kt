@@ -11,7 +11,6 @@ import androidx.core.view.GravityCompat
 import com.example.sawrabin.moviebookingapp.R
 import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModel
 import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModelImpl
-import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModelImpl.mToken
 import com.example.sawrabin.moviebookingapp.delegate.DrawerDelegate
 import com.example.sawrabin.moviebookingapp.delegate.MovieViewHolderDelegate
 import com.example.sawrabin.moviebookingapp.viewpod.DrawerViewPod
@@ -60,18 +59,18 @@ class HomeActivity : AppCompatActivity(), MovieViewHolderDelegate, DrawerDelegat
                 showError(it)
             }
         )
-
+        mMovieBookingModel.getUpcoming(onSuccess = {
+            mComingSoonViewPod.setData(it)
+        }, onFailure = {
+            showError(it)
+        })
         mMovieBookingModel.getNowShowing(onSuccess = {
             mNowShowingViewPod.setData(it)
         }, onFailure = {
             showError(it)
         })
 
-        mMovieBookingModel.getUpcoming(onSuccess = {
-            mComingSoonViewPod.setData(it)
-        }, onFailure = {
-            showError(it)
-        })
+
 
 
     }
@@ -105,6 +104,7 @@ class HomeActivity : AppCompatActivity(), MovieViewHolderDelegate, DrawerDelegat
     }
 
     override fun onTapMovie(movieId: Int) {
+        MovieBookingModelImpl.insertMovieId(movieId)
         startActivity(MovieDetailsActivity.newIntent(this, movieId))
     }
 
@@ -118,6 +118,7 @@ class HomeActivity : AppCompatActivity(), MovieViewHolderDelegate, DrawerDelegat
     }
 
     override fun onTapLogOut() {
+        Snackbar.make(window.decorView,"On Tap Login",Snackbar.LENGTH_LONG).show()
         mMovieBookingModel.userLogOut(
             onSuccess = { startActivity(UserLoginActivity.newIntent(this)) },
             onFailure = { showError(it) }

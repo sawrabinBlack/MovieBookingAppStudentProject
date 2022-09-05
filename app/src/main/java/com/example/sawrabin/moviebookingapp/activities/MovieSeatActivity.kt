@@ -43,8 +43,7 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_seat_activity)
-        val mData = intent?.getStringExtra(EXTRA_CARRIER_DATA)
-        mCarrierData = Gson().fromJson(mData, CarrierVO::class.java)
+        mCarrierData = MovieBookingModelImpl.getBookingData()
         Log.println(Log.INFO, "carrier_Seat", mCarrierData.toString())
         setUpSeatingPlanRecyclerView()
         setUpOnClickListener()
@@ -85,12 +84,12 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatDelegate {
 
         tvBuyTicket.setOnClickListener {
             if (mNumberTicket != 0) {
+MovieBookingModelImpl.storeMovieSeatData(mRow,mTotalPrice,mSelectedSeat)
                 mCarrierData?.let {
                     it.totalPrice = mTotalPrice
                     it.seatNumber = mSelectedSeat
                     it.row = mRow
                 }
-
                 val carrierDataJson = Gson().toJson(mCarrierData)
                 startActivity(SnackActivity.newIntent(this, carrierDataJson))
                 Log.println(Log.INFO, "movieTimeString", mCarrierData.toString())
@@ -121,7 +120,6 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatDelegate {
                 }
             }
         }
-
         mMovieSeatAdapter.setNewData(mMovieSeatList ?: listOf())
         movieSeatDataUpdate()
     }

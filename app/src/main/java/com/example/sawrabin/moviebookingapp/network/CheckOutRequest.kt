@@ -1,6 +1,6 @@
 package com.example.sawrabin.moviebookingapp.network
 
-import com.example.sawrabin.moviebookingapp.data.vos.SnackPaymentVO
+import com.example.sawrabin.moviebookingapp.data.vos.SnackVO
 import com.google.gson.annotations.SerializedName
 
 class CheckOutRequest(
@@ -19,7 +19,7 @@ class CheckOutRequest(
     @SerializedName("cinema_id")
     val cinemaId:Int?,
     @SerializedName("snacks")
-    val snacks:List<SnackPaymentVO>?
+    val snacks:List<SnackVO>?
 ) {
 }
 

@@ -1,18 +1,21 @@
 package com.example.sawrabin.moviebookingapp.data.vos
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class SnackPaymentVO(
+@Entity(tableName = "payments")
+data class PaymentVO(
     var isSelected: Boolean?,
-    @SerializedName("quantity")
-    var quantity: Int= 0,
     @SerializedName("id")
+    @PrimaryKey
     val id: Int?,
     @SerializedName("name")
+    @ColumnInfo(name = "name")
     val name: String?,
     @SerializedName("description")
-    val description: String?,
-    @SerializedName("price")
-    val price: Int?,
+    @ColumnInfo(name = "description")
+    val description: String?,)
 
-    )
+

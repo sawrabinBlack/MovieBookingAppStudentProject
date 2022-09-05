@@ -1,8 +1,6 @@
 package com.example.sawrabin.moviebookingapp.data.models
 
 import com.example.sawrabin.moviebookingapp.data.vos.*
-import com.example.sawrabin.moviebookingapp.network.CheckOutRequest
-import com.google.gson.annotations.SerializedName
 
 interface MovieBookingModel {
 
@@ -28,7 +26,7 @@ interface MovieBookingModel {
     )
 
     fun getProfile(
-        onSuccess: (DataVO) -> Unit,
+        onSuccess: (UserDataVO) -> Unit,
         onFailure: (String) -> Unit
     )
 
@@ -71,18 +69,19 @@ interface MovieBookingModel {
     )
 
     fun getImdbRating(
+        movieId: String,
         imdbId: String,
-        onSuccess: (MovieVO) -> Unit,
+        onSuccess: (Double) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun getSnackList(
-        onSuccess: (List<SnackPaymentVO>) -> Unit,
+        onSuccess: (List<SnackVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
     fun getPaymentMethods(
-        onSuccess: (List<SnackPaymentVO>) -> Unit,
+        onSuccess: (List<PaymentVO>) -> Unit,
         onFailure: (String) -> Unit
     )
 
@@ -96,14 +95,7 @@ interface MovieBookingModel {
     )
 
     fun checkOut(
-        cinemaDayTimeslotId: Int,
-        row: String,
-        seatNumber: String,
-        bookingDate: String,
-        movieId: Int,
         cardId: Int,
-        cinemaId: Int,
-        snacks: List<SnackPaymentVO>,
         onSuccess: (CheckOutSuccessVO) -> Unit,
         onFailure: (String) -> Unit
     )

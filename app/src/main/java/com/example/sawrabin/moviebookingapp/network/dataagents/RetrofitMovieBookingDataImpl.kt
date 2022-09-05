@@ -1,7 +1,6 @@
 package com.example.sawrabin.moviebookingapp.network.dataagents
 
 import android.util.Log
-import androidx.core.graphics.PathUtils.flatten
 import com.example.sawrabin.moviebookingapp.data.vos.*
 import com.example.sawrabin.moviebookingapp.network.CheckOutRequest
 import com.example.sawrabin.moviebookingapp.network.MovieApi
@@ -9,7 +8,6 @@ import com.example.sawrabin.moviebookingapp.network.MovieBookingApi
 import com.example.sawrabin.moviebookingapp.network.responses.*
 import com.example.sawrabin.moviebookingapp.utils.BASE_URL_MOVIE
 import com.example.sawrabin.moviebookingapp.utils.BASE_URL_MOVIE_BOOKING
-import com.example.sawrabin.moviebookingapp.viewpod.MovieListViewPod
 import okhttp3.OkHttpClient
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
@@ -50,7 +48,7 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
         email: String,
         phone: String,
         password: String,
-        onSuccess: (Pair<DataVO, String>) -> Unit,
+        onSuccess: (Pair<UserDataVO, String>) -> Unit,
         onFailure: (String) -> Unit
     ) {
         mMovieBookingApi?.registerUser(
@@ -83,7 +81,7 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
     override fun emailLoginUser(
         email: String,
         password: String,
-        onSuccess: (String) -> Unit,
+        onSuccess: (Pair<UserDataVO, String>) -> Unit,
         onFailure: (String) -> Unit
     ) {
         mMovieBookingApi?.emailLoginUser(email = email, password = password)
@@ -94,7 +92,9 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
-                            onSuccess(it.token ?: "")
+                            it.data?.let { dataVo ->
+                                onSuccess(Pair(dataVo, it.token ?: ""))
+                            }
                         }
 
                     } else onFailure(response.message())
@@ -131,7 +131,7 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
 
     override fun getProfile(
         userToken: String,
-        onSuccess: (DataVO) -> Unit,
+        onSuccess: (UserDataVO) -> Unit,
         onFailure: (String) -> Unit
     ) {
         mMovieBookingApi?.getProfile(userToken)?.enqueue(object : Callback<RegisterResponse> {
@@ -340,14 +340,14 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
 
     override fun getSnackList(
         userToken: String,
-        onSuccess: (List<SnackPaymentVO>) -> Unit,
+        onSuccess: (List<SnackVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
         mMovieBookingApi?.getSnackList(userToken)
-            ?.enqueue(object : Callback<GetSnackAndPaymentResponse> {
+            ?.enqueue(object : Callback<GetSnackResponse> {
                 override fun onResponse(
-                    call: Call<GetSnackAndPaymentResponse>,
-                    response: Response<GetSnackAndPaymentResponse>
+                    call: Call<GetSnackResponse>,
+                    response: Response<GetSnackResponse>
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
@@ -356,7 +356,7 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
                     } else onFailure(response.message())
                 }
 
-                override fun onFailure(call: Call<GetSnackAndPaymentResponse>, t: Throwable) {
+                override fun onFailure(call: Call<GetSnackResponse>, t: Throwable) {
                     onFailure(t.message ?: "")
                 }
 
@@ -365,14 +365,14 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
 
     override fun getPaymentMethods(
         userToken: String,
-        onSuccess: (List<SnackPaymentVO>) -> Unit,
+        onSuccess: (List<PaymentVO>) -> Unit,
         onFailure: (String) -> Unit
     ) {
         mMovieBookingApi?.getPaymentMethods(userToken)
-            ?.enqueue(object : Callback<GetSnackAndPaymentResponse> {
+            ?.enqueue(object : Callback<GetPaymentResponse> {
                 override fun onResponse(
-                    call: Call<GetSnackAndPaymentResponse>,
-                    response: Response<GetSnackAndPaymentResponse>
+                    call: Call<GetPaymentResponse>,
+                    response: Response<GetPaymentResponse>
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
@@ -381,7 +381,7 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
                     } else onFailure(response.message())
                 }
 
-                override fun onFailure(call: Call<GetSnackAndPaymentResponse>, t: Throwable) {
+                override fun onFailure(call: Call<GetPaymentResponse>, t: Throwable) {
                     onFailure(t.message ?: "")
                 }
 

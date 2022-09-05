@@ -3,16 +3,16 @@ package com.example.sawrabin.moviebookingapp.viewholder
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sawrabin.moviebookingapp.data.vos.SnackPaymentVO
+import com.example.sawrabin.moviebookingapp.data.vos.SnackVO
 import com.example.sawrabin.moviebookingapp.delegate.SnackDelegate
 import kotlinx.android.synthetic.main.view_holder_snack.view.*
 
 class SnackViewHolder(itemView: View, private var mDelegate: SnackDelegate) :
     RecyclerView.ViewHolder(itemView) {
 
-    private var mSnack: SnackPaymentVO? = null
+    private var mSnack: SnackVO? = null
 
-    fun bindData(snack: SnackPaymentVO) {
+    fun bindData(snack: SnackVO) {
         mSnack = snack
         itemView.tvSnackName.text = snack.name ?: ""
         itemView.tvSnackContent.text = snack.description

@@ -68,11 +68,12 @@ class MovieTimeActivity : AppCompatActivity(), MovieTimeDetailDelegate, MovieDat
 
     private fun getDataFromIntent() {
         val mData = intent?.getStringExtra(EXTRA_MOVIE_ID)
-        mDataParsed = Gson().fromJson(mData, CarrierVO::class.java)
+        mDataParsed = MovieBookingModelImpl.getBookingData()
     }
 
     private fun setUpOnClickListener() {
         tvNextMovieTime.setOnClickListener {
+            MovieBookingModelImpl.storeTimeSlotData(mCinemaId,mCinemaName?:"",mBookDate,mTimeSlot?:0,mStartTime?:"")
             mDataParsed?.let {
                 it.timeslot=mTimeSlot
                 it.bookDate=mBookDate

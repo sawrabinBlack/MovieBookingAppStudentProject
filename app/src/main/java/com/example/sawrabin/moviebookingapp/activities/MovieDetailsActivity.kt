@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.sawrabin.moviebookingapp.R
@@ -39,7 +40,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private var mPosterPath: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        movieId = intent?.getIntExtra(EXTRA_MOVIE_ID, 0)
+        movieId = MovieBookingModelImpl.getBookingData()?.movie_id
         setContentView(R.layout.activity_movie_details)
         setUpOnClickListener()
         setUpMovieGenreRecyclerView()
@@ -78,10 +79,10 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     private fun getImdbRating(imdbID: String) {
-        mMovieBookingModel.getImdbRating(
-            imdbId = imdbID, onSuccess = { movieVO ->
-                "IMDB ${movieVO.voteAverage}".also { tvImdbRating.text = it }
-                rbMovieDetail.rating = movieVO.voteAverage?.div(2)?.toFloat() ?: 0.0F
+        mMovieBookingModel.getImdbRating(movieId=movieId.toString(),
+            imdbId = imdbID, onSuccess = {rating ->
+                "IMDB $rating".also { tvImdbRating.text = it }
+                rbMovieDetail.rating = rating.div(2).toFloat() ?: 0.0F
             }, onFailure = { error ->
                 showError(error)
             }
@@ -102,6 +103,9 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private fun setUpOnClickListener() {
         tvGetYourTicket.setOnClickListener {
+            MovieBookingModelImpl.storeMovieDetailData(
+                runtime = mMovieDuration, name = mMovieName, posterPath = mPosterPath
+            )
             //Creating Data To Send Into Another Page
             val request = CarrierVO(movie_id = movieId, name = mMovieName, posterPath = mPosterPath, runtime = mMovieDuration)
             carrierString = Gson().toJson(request, CarrierVO::class.java)
@@ -130,6 +134,6 @@ class MovieDetailsActivity : AppCompatActivity() {
 
 
     private fun showError(error: String) {
-        Snackbar.make(window.decorView, error, Snackbar.LENGTH_LONG).show()
+        Toast.makeText(this,error,Toast.LENGTH_SHORT).show()
     }
 }

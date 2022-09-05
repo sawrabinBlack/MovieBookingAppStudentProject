@@ -1,19 +1,19 @@
 package com.example.sawrabin.moviebookingapp.viewholder
 
-import android.graphics.Color
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sawrabin.moviebookingapp.R
-import com.example.sawrabin.moviebookingapp.data.vos.SnackPaymentVO
+import com.example.sawrabin.moviebookingapp.data.vos.PaymentVO
+import com.example.sawrabin.moviebookingapp.data.vos.SnackVO
 import com.example.sawrabin.moviebookingapp.delegate.PaymentMethodDelegate
 import kotlinx.android.synthetic.main.view_holder_payment_method.view.*
 
 class PaymentViewHolder(itemView: View, private var mDelegate: PaymentMethodDelegate) :
     RecyclerView.ViewHolder(itemView) {
-    private var mPayment: SnackPaymentVO? = null
+    private var mPayment: PaymentVO? = null
 
-    fun bindData(payment: SnackPaymentVO) {
+    fun bindData(payment: PaymentVO) {
         mPayment = payment
         itemView.tvPaymentType.text = payment.name ?: ""
         itemView.tvPaymentChannel.text = payment.description ?: ""

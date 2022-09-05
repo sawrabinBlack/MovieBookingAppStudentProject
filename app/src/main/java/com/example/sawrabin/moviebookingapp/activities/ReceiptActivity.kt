@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.example.sawrabin.moviebookingapp.R
+import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModelImpl
 import com.example.sawrabin.moviebookingapp.data.vos.CarrierVO
 import com.example.sawrabin.moviebookingapp.utils.BASE_IMAGE_URL
 import com.google.gson.Gson
@@ -29,7 +30,7 @@ class ReceiptActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receipt)
         mCarrierData =
-            Gson().fromJson(intent.getStringExtra(EXTRA_CARRIER_DATA), CarrierVO::class.java)
+            MovieBookingModelImpl.getBookingData()
         setUpUI()
         setUpOnClickListener()
     }

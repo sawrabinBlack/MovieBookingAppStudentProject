@@ -53,8 +53,7 @@ class PaymentAccountActivity : AppCompatActivity() {
     }
 
     private fun setUpInitialDataAndUI() {
-        mData = intent?.getStringExtra(SnackActivity.EXTRA_CARRIER_DATA)
-        mCarrierData = Gson().fromJson(mData, CarrierVO::class.java)
+        mCarrierData = MovieBookingModelImpl.getBookingData()
         mCarrierData?.let {
             tvPaymentAmount.text = "$ ${it.totalPrice}"
         }
@@ -92,15 +91,9 @@ class PaymentAccountActivity : AppCompatActivity() {
 
     private fun requestCheckOut() {
         mMovieBookingModel.checkOut(
-            row = mCarrierData?.row ?: "",
-            seatNumber = mCarrierData?.seatNumber ?: "",
-            snacks = mCarrierData?.snack ?: listOf(),
-            bookingDate = mCarrierData?.bookDate ?: "",
-            movieId = mCarrierData?.movie_id ?: 0,
-            cinemaDayTimeslotId = mCarrierData?.timeslot ?: 0,
             cardId = mSelectedCardNumber,
-            cinemaId = mCarrierData?.cinemaId ?: 0,
             onSuccess = {
+                MovieBookingModelImpl.storeBookingNo(it.bookingNo?:"")
                 mCarrierData?.bookingNo = it.bookingNo
                 val carrierJson = Gson().toJson(mCarrierData, CarrierVO::class.java)
                 startActivity(ReceiptActivity.newIntent(this, carrierJson))

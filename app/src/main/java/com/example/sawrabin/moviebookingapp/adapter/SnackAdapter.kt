@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sawrabin.moviebookingapp.R
-import com.example.sawrabin.moviebookingapp.data.vos.SnackPaymentVO
+import com.example.sawrabin.moviebookingapp.data.vos.SnackVO
 import com.example.sawrabin.moviebookingapp.delegate.SnackDelegate
 import com.example.sawrabin.moviebookingapp.viewholder.SnackViewHolder
 
 class SnackAdapter (private var mDelegate:SnackDelegate): RecyclerView.Adapter<SnackViewHolder>() {
-    private var mSnackList: List<SnackPaymentVO> = listOf()
+    private var mSnackList: List<SnackVO> = listOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SnackViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.view_holder_snack, parent, false)
@@ -28,7 +28,7 @@ class SnackAdapter (private var mDelegate:SnackDelegate): RecyclerView.Adapter<S
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setNewData(snackList: List<SnackPaymentVO>) {
+    fun setNewData(snackList: List<SnackVO>) {
         mSnackList = snackList
         notifyDataSetChanged()
     }
