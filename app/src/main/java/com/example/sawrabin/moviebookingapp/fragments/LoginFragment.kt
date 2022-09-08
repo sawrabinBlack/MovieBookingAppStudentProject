@@ -1,27 +1,26 @@
 package com.example.sawrabin.moviebookingapp.fragments
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.fragment.app.Fragment
 import com.example.sawrabin.moviebookingapp.R
-import com.example.sawrabin.moviebookingapp.activities.HomeActivity
 import com.example.sawrabin.moviebookingapp.delegate.LoginMethodViewPodDelegate
 import com.example.sawrabin.moviebookingapp.delegate.LoginMethodsDelegate
-import com.example.sawrabin.moviebookingapp.delegate.MovieViewHolderDelegate
 import com.example.sawrabin.moviebookingapp.viewpod.LoginMethodsViewPod
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_snack.view.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 import kotlinx.android.synthetic.main.view_pod_login_methods.*
 import kotlinx.android.synthetic.main.view_pod_login_methods.view.*
-import kotlinx.android.synthetic.main.view_pod_login_methods.view.flConfirm
 
 
 class LoginFragment : Fragment(), LoginMethodViewPodDelegate {
@@ -51,7 +50,11 @@ class LoginFragment : Fragment(), LoginMethodViewPodDelegate {
         mLoginMethodsViewPod = vpLogin as LoginMethodsViewPod
         password = view.etPasswordLogin
         email = view.etEmailLogin
+
         mLoginMethodsViewPod.setUpViewPod(this)
+//        view.flSignGoogle.setOnClickListener {
+//            Log.println(Log.INFO,"login","login")
+//        }
 
 
     }
@@ -82,6 +85,10 @@ class LoginFragment : Fragment(), LoginMethodViewPodDelegate {
         }
 
 
+    }
+
+    override fun onTapLoginWithGoogle() {
+        mDelegate.onTapSignInWithGoogle()
     }
 
 

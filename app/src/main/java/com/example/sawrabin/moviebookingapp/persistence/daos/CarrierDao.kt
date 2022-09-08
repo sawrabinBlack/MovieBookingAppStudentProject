@@ -24,16 +24,16 @@ interface CarrierDao {
         timeslot_time : String,
     )
 
-    @Query("UPDATE booking_data SET `row`= :row, total_price= :totalPrice, seat_number= :seatNumber")
+    @Query("UPDATE booking_data SET `row`= :row, total_price= :totalPrice, seat_number= :seatNumber WHERE id = (SELECT Max(id) FROM booking_data)")
     fun updateBookingDataWithTime(row : String,totalPrice : Int, seatNumber:String)
 
-    @Query("UPDATE booking_data SET snack = :snack , total_price=:totalPrice")
+    @Query("UPDATE booking_data SET snack = :snack , total_price=:totalPrice WHERE id = (SELECT Max(id) FROM booking_data)")
     fun updateBookingDataWithSnack(snack : String, totalPrice: Int)
 
     @Query("DELETE FROM booking_data")
     fun deleteBookingData()
 
-    @Query("UPDATE booking_data SET booking_no = :bookingNo")
+    @Query("UPDATE booking_data SET booking_no = :bookingNo WHERE id = (SELECT Max(id) FROM booking_data)")
     fun updateBookingDataWithBookingNo(bookingNo:String)
 
 

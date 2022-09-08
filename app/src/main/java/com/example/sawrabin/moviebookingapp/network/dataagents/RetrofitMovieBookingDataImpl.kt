@@ -43,11 +43,38 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
         mMovieApi = retrofitMovieApi.create(MovieApi::class.java)
     }
 
+    override fun loginWithGoogle(
+        accessToken: String,
+        onSuccess: (Pair<UserDataVO, String>) -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        mMovieBookingApi?.loginWithGoogle(accessToken)?.enqueue(object : Callback<RegisterResponse>{
+            override fun onResponse(
+                call: Call<RegisterResponse>,
+                response: Response<RegisterResponse>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        it.data?.let { dataVo ->
+                            onSuccess(Pair(dataVo, it.token ?: ""))
+                        }
+
+                    }
+                } else onFailure(response.message())
+            }
+
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+
+            }
+        })
+    }
+
     override fun registerUser(
         name: String,
         email: String,
         phone: String,
         password: String,
+        googleAccessToken: String,
         onSuccess: (Pair<UserDataVO, String>) -> Unit,
         onFailure: (String) -> Unit
     ) {
@@ -55,8 +82,7 @@ object RetrofitMovieBookingDataImpl : MovieBookingDataAgent {
             name = name,
             email = email,
             phone = phone,
-            password = password
-        )?.enqueue(object : Callback<RegisterResponse> {
+            password = password, googleAccessToken = googleAccessToken)?.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>

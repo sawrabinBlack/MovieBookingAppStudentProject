@@ -83,4 +83,8 @@ class SignInFragment : Fragment(), LoginMethodViewPodDelegate {
             }
         }
     }
+
+    override fun onTapLoginWithGoogle() {
+        mDelegate.onTapSignUpWithGoogle()
+    }
 }

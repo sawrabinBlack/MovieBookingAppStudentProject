@@ -6,13 +6,21 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface MovieBookingApi {
+    @POST(API_GOOGLE_LOGIN)
+    @FormUrlEncoded
+    fun loginWithGoogle(
+        @Field(PARAM_ACCESS_TOKEN) accessToken: String,
+
+    ): Call<RegisterResponse>
+
     @POST(API_REGISTER)
     @FormUrlEncoded
     fun registerUser(
         @Field(PARAM_NAME) name: String,
         @Field(PARAM_EMAIL) email: String,
         @Field(PARAM_PHONE) phone: String,
-        @Field(PARAM_PASSWORD) password: String
+        @Field(PARAM_PASSWORD) password: String,
+        @Field(PARAM_GOOGLE_ACCESS_TOKEN)googleAccessToken : String
 
     ): Call<RegisterResponse>
 

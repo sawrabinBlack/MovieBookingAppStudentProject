@@ -15,12 +15,11 @@ import com.example.sawrabin.moviebookingapp.data.vos.CarrierVO
 import com.example.sawrabin.moviebookingapp.data.vos.MovieSeatVO
 import com.example.sawrabin.moviebookingapp.data.vos.SEAT_TYPE_AVAILABLE
 import com.example.sawrabin.moviebookingapp.delegate.MovieSeatDelegate
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_movie_seat_activity.*
 
 class MovieSeatActivity : AppCompatActivity(), MovieSeatDelegate {
     lateinit var mMovieSeatAdapter: MovieSeatAdapter
-    private var mMovieBooking: MovieBookingModel = MovieBookingModelImpl
+    private var mMovieBookingModel: MovieBookingModel = MovieBookingModelImpl
     private var mCarrierData: CarrierVO? = null
     private var mMovieSeatList: List<MovieSeatVO>? = null
     private var mSelectedSeat: String = ""
@@ -29,12 +28,8 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatDelegate {
     private var mRow: String = ""
 
     companion object {
-        const val EXTRA_CARRIER_DATA = "EXTRA_CARRIER_DATA"
-        fun newIntent(context: Context, data: String): Intent {
-
-            val intent = Intent(context, MovieSeatActivity::class.java)
-            intent.putExtra(EXTRA_CARRIER_DATA, data)
-            return intent
+        fun newIntent(context: Context): Intent {
+            return Intent(context, MovieSeatActivity::class.java)
         }
 
 
@@ -43,8 +38,7 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_seat_activity)
-        mCarrierData = MovieBookingModelImpl.getBookingData()
-        Log.println(Log.INFO, "carrier_Seat", mCarrierData.toString())
+        mCarrierData = mMovieBookingModel.getBookingData()
         setUpSeatingPlanRecyclerView()
         setUpOnClickListener()
 
@@ -63,7 +57,7 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatDelegate {
     }
 
     private fun requestData(carrier: CarrierVO) {
-        mMovieBooking.getMovieSeat(
+        mMovieBookingModel.getMovieSeat(
             bookDate = carrier.bookDate ?: "",
             cinemaDayTimeslotId = carrier.timeslot.toString(),
             onFailure = {
@@ -78,21 +72,14 @@ class MovieSeatActivity : AppCompatActivity(), MovieSeatDelegate {
     }
 
     private fun setUpOnClickListener() {
-//        ivBtnBackSeatPlan.setOnClickListener {
-//            startActivity(MovieTimeActivity.newIntent(this))
-//        }
+        ivBtnBackSeatPlan.setOnClickListener {
+            startActivity(MovieTimeActivity.newIntent(this))
+        }
 
         tvBuyTicket.setOnClickListener {
             if (mNumberTicket != 0) {
-MovieBookingModelImpl.storeMovieSeatData(mRow,mTotalPrice,mSelectedSeat)
-                mCarrierData?.let {
-                    it.totalPrice = mTotalPrice
-                    it.seatNumber = mSelectedSeat
-                    it.row = mRow
-                }
-                val carrierDataJson = Gson().toJson(mCarrierData)
-                startActivity(SnackActivity.newIntent(this, carrierDataJson))
-                Log.println(Log.INFO, "movieTimeString", mCarrierData.toString())
+                mMovieBookingModel.storeMovieSeatData(mRow,mTotalPrice,mSelectedSeat)
+                startActivity(SnackActivity.newIntent(this))
             } else showError("Please Select Movie Seat")
 
         }

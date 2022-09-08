@@ -65,10 +65,10 @@
                     android:background="@drawable/background_movie_title"
                     android:paddingStart="@dimen/margin_medium_2"
                     android:paddingTop="@dimen/margin_large"
-                    tools:text="John Wick 3 - Parabellum"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_heading_1x"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="John Wick 3 - Parabellum" />
 
             </RelativeLayout>
 

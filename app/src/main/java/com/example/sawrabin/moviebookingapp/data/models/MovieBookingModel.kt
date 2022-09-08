@@ -4,11 +4,31 @@ import com.example.sawrabin.moviebookingapp.data.vos.*
 
 interface MovieBookingModel {
 
+    fun storeMovieDetailData(runtime: String, posterPath: String, name: String)
+    fun insertMovieId(movieId: Int)
+    fun storeTimeSlotData(
+        cinemaId: Int,
+        cinema_name: String,
+        bookDate: String,
+        timeslot: Int,
+        timeslot_time: String
+    )
+    fun storeBookingNo(bookingNo: String)
+    fun storeMovieSeatData(row: String, totalPrice: Int, seatNumber: String)
+    fun storeSnackData(snack: List<SnackVO>?, totalPrice: Int)
+    fun getBookingData(): CarrierVO?
+    fun loginWithGoogle(
+        accessToken: String,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    )
+
     fun registerUser(
         name: String,
         email: String,
         phone: String,
         password: String,
+        googleAccessToken: String,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     )

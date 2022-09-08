@@ -27,33 +27,17 @@ class LoginMethodsViewPod @JvmOverloads constructor(
         super.onFinishInflate()
     }
 
-    //    fun setUpViewPod(mMethodsDelegate: LoginMethodsDelegate, email: String, password: String) {
-//        mDelegate = mMethodsDelegate
-//        mDelegate.onCLickConfirmLoginIn(email, password)
-//
-//
-//    }
-//
-//    fun setUpViewPodSignIn(
-//        mMethodsDelegate: LoginMethodsDelegate,
-//        email: String,
-//        password: String,
-//        phone: String,
-//        name: String,
-//    ) {
-//        mDelegate = mMethodsDelegate
-//            mDelegate.onClickConfirmSignUp(
-//                name = name,
-//                phone = phone,
-//                email = email,
-//                password = password
-//            )
+
     fun setUpViewPod(
         mLoginMethodsViewPodDelegate: LoginMethodViewPodDelegate
     ) {
         mDelegate = mLoginMethodsViewPodDelegate
         flConfirm.setOnClickListener {
             mDelegate.onTapConfirm()
+        }
+
+        flSignGoogle.setOnClickListener {
+            mDelegate.onTapLoginWithGoogle()
         }
 
     }

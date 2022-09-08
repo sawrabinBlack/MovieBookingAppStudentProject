@@ -2,11 +2,14 @@ package com.example.sawrabin.moviebookingapp.activities
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import com.example.sawrabin.moviebookingapp.R
 import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModel
@@ -71,8 +74,6 @@ class HomeActivity : AppCompatActivity(), MovieViewHolderDelegate, DrawerDelegat
         })
 
 
-
-
     }
 
     private fun setUpToolBar() {
@@ -85,6 +86,8 @@ class HomeActivity : AppCompatActivity(), MovieViewHolderDelegate, DrawerDelegat
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+        val colorDrawable = ColorDrawable(Color.parseColor("#FFFFFF"))
+        supportActionBar?.setBackgroundDrawable(colorDrawable)
     }
 
     private fun setUpViewPod() {
@@ -104,8 +107,8 @@ class HomeActivity : AppCompatActivity(), MovieViewHolderDelegate, DrawerDelegat
     }
 
     override fun onTapMovie(movieId: Int) {
-        MovieBookingModelImpl.insertMovieId(movieId)
-        startActivity(MovieDetailsActivity.newIntent(this, movieId))
+        mMovieBookingModel.insertMovieId(movieId)
+        startActivity(MovieDetailsActivity.newIntent(this))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -118,19 +121,31 @@ class HomeActivity : AppCompatActivity(), MovieViewHolderDelegate, DrawerDelegat
     }
 
     override fun onTapLogOut() {
-        Snackbar.make(window.decorView,"On Tap Login",Snackbar.LENGTH_LONG).show()
-        mMovieBookingModel.userLogOut(
-            onSuccess = { startActivity(UserLoginActivity.newIntent(this)) },
-            onFailure = { showError(it) }
-        )
+        logOut()
 
 
+    }
+
+    private fun logOut() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Log out")
+        alertDialogBuilder.setMessage("Do You Want To Log Out? ")
+        alertDialogBuilder.setPositiveButton("Yes") { _, _ ->
+            mMovieBookingModel.userLogOut(
+                onSuccess = { startActivity(UserLoginActivity.newIntent(this)) },
+                onFailure = { showError(it) }
+            )
+        }
+        alertDialogBuilder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+        alertDialogBuilder.create().show()
     }
 
     override fun onBackPressed() {
         return if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        } else super.onBackPressed()
+        } else logOut()
     }
 
     private fun showError(error: String) {

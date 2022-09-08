@@ -10,4 +10,6 @@ interface LoginMethodsDelegate {
     )
 
     fun onCLickConfirmLoginIn(email: String, password: String)
+    fun onTapSignInWithGoogle()
+    fun onTapSignUpWithGoogle()
 }

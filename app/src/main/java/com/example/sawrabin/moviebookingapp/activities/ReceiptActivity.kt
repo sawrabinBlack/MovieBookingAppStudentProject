@@ -9,7 +9,6 @@ import com.example.sawrabin.moviebookingapp.R
 import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModelImpl
 import com.example.sawrabin.moviebookingapp.data.vos.CarrierVO
 import com.example.sawrabin.moviebookingapp.utils.BASE_IMAGE_URL
-import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import kotlinx.android.synthetic.main.activity_receipt.*
@@ -18,19 +17,15 @@ class ReceiptActivity : AppCompatActivity() {
     private var mCarrierData: CarrierVO? = null
 
     companion object {
-        private const val EXTRA_CARRIER_DATA = "EXTRA_CARRIER_DATA"
-        fun newIntent(context: Context, data: String): Intent {
-            val intent = Intent(context, ReceiptActivity::class.java)
-            intent.putExtra(EXTRA_CARRIER_DATA, data)
-            return intent
+        fun newIntent(context: Context): Intent {
+            return Intent(context, ReceiptActivity::class.java)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receipt)
-        mCarrierData =
-            MovieBookingModelImpl.getBookingData()
+        mCarrierData = MovieBookingModelImpl.getBookingData()
         setUpUI()
         setUpOnClickListener()
     }
@@ -62,5 +57,9 @@ class ReceiptActivity : AppCompatActivity() {
         ivBtnCloseReceipt.setOnClickListener {
             startActivity(HomeActivity.newIntent(this))
         }
+    }
+
+    override fun onBackPressed() {
+        startActivity(HomeActivity.newIntent(this))
     }
 }

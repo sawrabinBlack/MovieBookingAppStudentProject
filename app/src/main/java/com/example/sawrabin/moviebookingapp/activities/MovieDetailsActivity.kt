@@ -15,17 +15,13 @@ import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModelImpl
 import com.example.sawrabin.moviebookingapp.data.vos.CarrierVO
 import com.example.sawrabin.moviebookingapp.data.vos.MovieVO
 import com.example.sawrabin.moviebookingapp.utils.BASE_IMAGE_URL
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_movie_details.*
 
 class MovieDetailsActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
-        fun newIntent(context: Context, movieId: Int): Intent {
-            val intent = Intent(context, MovieDetailsActivity::class.java)
-            intent.putExtra(EXTRA_MOVIE_ID, movieId)
-            return intent
+        fun newIntent(context: Context): Intent {
+            return Intent(context, MovieDetailsActivity::class.java)
         }
     }
 
@@ -33,14 +29,13 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var mMovieGenreAdapter: MovieGenreAdapter
     private val mMovieBookingModel: MovieBookingModel = MovieBookingModelImpl
     private var mMovieName: String = ""
-    private var carrierString: String = ""
     private var mImdbId: String? = null
     private var movieId: Int? = 0
     private var mMovieDuration: String = ""
     private var mPosterPath: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        movieId = MovieBookingModelImpl.getBookingData()?.movie_id
+        movieId = mMovieBookingModel.getBookingData()?.movie_id
         setContentView(R.layout.activity_movie_details)
         setUpOnClickListener()
         setUpMovieGenreRecyclerView()
@@ -79,12 +74,12 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     private fun getImdbRating(imdbID: String) {
-        mMovieBookingModel.getImdbRating(movieId=movieId.toString(),
-            imdbId = imdbID, onSuccess = {rating ->
+        mMovieBookingModel.getImdbRating(movieId = movieId.toString(),
+            imdbId = imdbID, onSuccess = { rating ->
                 "IMDB $rating".also { tvImdbRating.text = it }
                 rbMovieDetail.rating = rating.div(2).toFloat() ?: 0.0F
-            }, onFailure = { error ->
-                showError(error)
+            }, onFailure = {
+
             }
         )
     }
@@ -96,20 +91,18 @@ class MovieDetailsActivity : AppCompatActivity() {
             .load("$BASE_IMAGE_URL${movie.posterPath}")
             .into(ivMovieDetail)
         tvPlotSummary.text = movie.overview ?: ""
-        mMovieDuration=movie.runTimeFormattedInHourAndMin()
+        mMovieDuration = movie.runTimeFormattedInHourAndMin()
         tvMovieDetailDuration.text = movie.runTimeFormattedInHourAndMin()
         this.mMovieName = movie.title ?: ""
+        clMovieDetail.title = movie.title
     }
 
     private fun setUpOnClickListener() {
         tvGetYourTicket.setOnClickListener {
-            MovieBookingModelImpl.storeMovieDetailData(
+            mMovieBookingModel.storeMovieDetailData(
                 runtime = mMovieDuration, name = mMovieName, posterPath = mPosterPath
             )
-            //Creating Data To Send Into Another Page
-            val request = CarrierVO(movie_id = movieId, name = mMovieName, posterPath = mPosterPath, runtime = mMovieDuration)
-            carrierString = Gson().toJson(request, CarrierVO::class.java)
-            startActivity(MovieTimeActivity.newIntent(this, this.carrierString))
+            startActivity(MovieTimeActivity.newIntent(this))
 
         }
 
@@ -134,6 +127,6 @@ class MovieDetailsActivity : AppCompatActivity() {
 
 
     private fun showError(error: String) {
-        Toast.makeText(this,error,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 }

@@ -17,7 +17,6 @@ import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModel
 import com.example.sawrabin.moviebookingapp.data.models.MovieBookingModelImpl
 import com.example.sawrabin.moviebookingapp.data.vos.CardVO
 import com.example.sawrabin.moviebookingapp.data.vos.CarrierVO
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_payment_account.*
 
@@ -34,10 +33,8 @@ class PaymentAccountActivity : AppCompatActivity() {
 
     companion object {
         private const val EXTRA_CARRIER_DATA = "EXTRA_CARRIER_DATA"
-        fun newIntent(context: Context, data: String): Intent {
-            val intent = Intent(context, PaymentAccountActivity::class.java)
-            intent.putExtra(EXTRA_CARRIER_DATA, data)
-            return intent
+        fun newIntent(context: Context): Intent {
+            return Intent(context, PaymentAccountActivity::class.java)
         }
     }
 
@@ -85,7 +82,7 @@ class PaymentAccountActivity : AppCompatActivity() {
         }
 
         ivBtnBackPaymentAccount.setOnClickListener {
-            startActivity(SnackActivity.newIntent(this, mData ?: ""))
+            startActivity(SnackActivity.newIntent(this))
         }
     }
 
@@ -93,10 +90,8 @@ class PaymentAccountActivity : AppCompatActivity() {
         mMovieBookingModel.checkOut(
             cardId = mSelectedCardNumber,
             onSuccess = {
-                MovieBookingModelImpl.storeBookingNo(it.bookingNo?:"")
-                mCarrierData?.bookingNo = it.bookingNo
-                val carrierJson = Gson().toJson(mCarrierData, CarrierVO::class.java)
-                startActivity(ReceiptActivity.newIntent(this, carrierJson))
+                mMovieBookingModel.storeBookingNo(it.bookingNo?:"")
+                startActivity(ReceiptActivity.newIntent(this))
             }, onFailure = {
                 showError(it)
             })

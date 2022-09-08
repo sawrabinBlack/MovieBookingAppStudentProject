@@ -28,11 +28,8 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
     var mCarrierJson: String = ""
 
     companion object {
-        const val EXTRA_CARRIER_DATA = "EXTRA_CARRIER_DATA"
-        fun newIntent(context: Context, data: String): Intent {
-            val intent = Intent(context, SnackActivity::class.java)
-            intent.putExtra(EXTRA_CARRIER_DATA, data)
-            return intent
+        fun newIntent(context: Context): Intent {
+            return Intent(context, SnackActivity::class.java)
         }
     }
 
@@ -41,7 +38,7 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_snack)
-        mCarrierData = MovieBookingModelImpl.getBookingData()
+        mCarrierData = mMovieBookingModel.getBookingData()
         mCarrierData?.let {
             mSubTotal = it.totalPrice ?: 0
             subTotalUpdate(it.totalPrice ?: 0)
@@ -82,19 +79,14 @@ class SnackActivity : AppCompatActivity(), SnackDelegate, PaymentMethodDelegate 
 
 
     private fun setUpOnClickListener() {
-//        ivBtnBackSnack.setOnClickListener {
-//            startActivity(MovieSeatActivity.newIntent(this))
-//        }
+        ivBtnBackSnack.setOnClickListener {
+            startActivity(MovieSeatActivity.newIntent(this))
+        }
 
         tvPaySnack.setOnClickListener {
             val mSelectedSnackList = mSnackList.filter { it.quantity != 0 }
-            MovieBookingModelImpl.storeSnackData(mSelectedSnackList,mSubTotal)
-            mCarrierData?.let {
-                it.snack=mSelectedSnackList
-                it.totalPrice=mSubTotal
-            }
-            mCarrierJson = Gson().toJson(mCarrierData, CarrierVO::class.java)
-            startActivity(PaymentAccountActivity.newIntent(this, mCarrierJson))
+            mMovieBookingModel.storeSnackData(mSelectedSnackList,mSubTotal)
+            startActivity(PaymentAccountActivity.newIntent(this))
         }
     }
 

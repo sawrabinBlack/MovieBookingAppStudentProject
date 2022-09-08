@@ -25,17 +25,17 @@ object MovieBookingModelImpl : MovieBookingModel {
         mMovieBookingDatabase = MovieBookingDatabase.getInstance(context)
     }
 
-    fun storeMovieDetailData(runtime: String, posterPath: String, name: String) {
+    override fun storeMovieDetailData(runtime: String, posterPath: String, name: String) {
         mMovieBookingDatabase?.carrierDao()
             ?.updateBookingDataWithMovieDetail(runtime, posterPath, name)
     }
 
-    fun insertMovieId(movieId: Int) {
+    override fun insertMovieId(movieId: Int) {
         val mCarrierVO = CarrierVO(movie_id = movieId)
         mMovieBookingDatabase?.carrierDao()?.insertCarrierData(mCarrierVO)
     }
 
-    fun storeTimeSlotData(
+    override fun storeTimeSlotData(
         cinemaId: Int,
         cinema_name: String,
         bookDate: String,
@@ -51,21 +51,36 @@ object MovieBookingModelImpl : MovieBookingModel {
         )
     }
 
-    fun storeBookingNo(bookingNo: String) {
+    override fun storeBookingNo(bookingNo: String) {
         mMovieBookingDatabase?.carrierDao()?.updateBookingDataWithBookingNo(bookingNo)
     }
 
-    fun storeMovieSeatData(row: String, totalPrice: Int, seatNumber: String) {
+    override fun storeMovieSeatData(row: String, totalPrice: Int, seatNumber: String) {
         mMovieBookingDatabase?.carrierDao()?.updateBookingDataWithTime(row, totalPrice, seatNumber)
     }
 
-    fun storeSnackData(snack: List<SnackVO>?, totalPrice: Int) {
+    override fun storeSnackData(snack: List<SnackVO>?, totalPrice: Int) {
         val snackJson = Gson().toJson(snack)
         mMovieBookingDatabase?.carrierDao()?.updateBookingDataWithSnack(snackJson, totalPrice)
     }
 
-    fun getBookingData(): CarrierVO? {
+    override fun getBookingData(): CarrierVO? {
         return mMovieBookingDatabase?.carrierDao()?.getBookingData()
+    }
+
+    override fun loginWithGoogle(
+        accessToken: String,
+        onSuccess: () -> Unit,
+        onFailure: (String) -> Unit
+    ) {
+        mMovieBookingDataAgent.loginWithGoogle(
+            accessToken = accessToken,onSuccess = {
+                it.first.userToken = it.second
+                mMovieBookingDatabase?.userDataDao()?.insertUser(it.first)
+                onSuccess()
+            },
+            onFailure = onFailure
+        )
     }
 
     override fun registerUser(
@@ -73,6 +88,7 @@ object MovieBookingModelImpl : MovieBookingModel {
         email: String,
         phone: String,
         password: String,
+        googleAccessToken: String,
         onSuccess: () -> Unit,
         onFailure: (String) -> Unit
     ) {
@@ -82,6 +98,7 @@ object MovieBookingModelImpl : MovieBookingModel {
             email = email,
             phone = phone,
             password = password,
+            googleAccessToken = googleAccessToken,
             onSuccess = {
                 it.first.userToken = it.second
                 mMovieBookingDatabase?.userDataDao()?.insertUser(it.first)

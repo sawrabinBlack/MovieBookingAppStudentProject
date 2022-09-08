@@ -52,6 +52,8 @@
         //Recycler View For Date
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingEnd="@dimen/margin_medium_2"
+            android:clipToPadding="false"
             android:id="@+id/rvMovieDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

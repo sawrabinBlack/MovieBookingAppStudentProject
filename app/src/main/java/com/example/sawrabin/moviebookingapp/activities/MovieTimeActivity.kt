@@ -39,11 +39,8 @@ class MovieTimeActivity : AppCompatActivity(), MovieTimeDetailDelegate, MovieDat
 
 
     companion object {
-        const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
-        fun newIntent(context: Context, data: String): Intent {
-            val intent = Intent(context, MovieTimeActivity::class.java)
-            intent.putExtra(EXTRA_MOVIE_ID, data)
-            return intent
+        fun newIntent(context: Context): Intent {
+            return Intent(context, MovieTimeActivity::class.java)
         }
     }
 
@@ -67,32 +64,27 @@ class MovieTimeActivity : AppCompatActivity(), MovieTimeDetailDelegate, MovieDat
     }
 
     private fun getDataFromIntent() {
-        val mData = intent?.getStringExtra(EXTRA_MOVIE_ID)
         mDataParsed = MovieBookingModelImpl.getBookingData()
     }
 
     private fun setUpOnClickListener() {
         tvNextMovieTime.setOnClickListener {
-            MovieBookingModelImpl.storeTimeSlotData(mCinemaId,mCinemaName?:"",mBookDate,mTimeSlot?:0,mStartTime?:"")
-            mDataParsed?.let {
-                it.timeslot=mTimeSlot
-                it.bookDate=mBookDate
-                it.cinemaId=mCinemaId
-                it.cinemaName=mCinemaName
-                it.timeslotTime=mStartTime
-
-            }
+            MovieBookingModelImpl.storeTimeSlotData(
+                mCinemaId,
+                mCinemaName ?: "",
+                mBookDate,
+                mTimeSlot ?: 0,
+                mStartTime ?: ""
+            )
             if (isSelectedTimeSlot) {
-                val carrierDataJson = Gson().toJson(mDataParsed)
-                startActivity(MovieSeatActivity.newIntent(this, carrierDataJson))
-                Log.println(Log.INFO,"movieTimeString",mDataParsed.toString())
+                startActivity(MovieSeatActivity.newIntent(this))
             } else showError("Please Select Movie Show Time")
 
         }
 
-//        ivBackMovieTime.setOnClickListener {
-//            startActivity(MovieDetailsActivity.newIntent(this))
-//        }
+        ivBackMovieTime.setOnClickListener {
+            startActivity(MovieDetailsActivity.newIntent(this))
+        }
     }
 
     private fun setUpRecycleView() {
@@ -151,7 +143,7 @@ class MovieTimeActivity : AppCompatActivity(), MovieTimeDetailDelegate, MovieDat
     }
 
     private fun showError(error: String) {
-        Toast.makeText(this,error,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
     private fun generateTwoWeeks() {
@@ -172,7 +164,6 @@ class MovieTimeActivity : AppCompatActivity(), MovieTimeDetailDelegate, MovieDat
 
         }
         mDateList = twoWeeksData
-        Log.println(Log.INFO, "generatedDate", mDateList.toString())
 
 
     }

@@ -4,12 +4,17 @@ import com.example.sawrabin.moviebookingapp.data.vos.*
 import com.example.sawrabin.moviebookingapp.network.CheckOutRequest
 
 interface MovieBookingDataAgent {
-
+fun loginWithGoogle(
+    accessToken : String,
+    onSuccess: (Pair<UserDataVO, String>) -> Unit,
+    onFailure: (String) -> Unit
+)
     fun registerUser(
         name: String,
         email: String,
         phone: String,
         password: String,
+        googleAccessToken : String,
         onSuccess: (Pair<UserDataVO, String>) -> Unit,
         onFailure: (String) -> Unit
     )
